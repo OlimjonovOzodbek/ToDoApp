@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,12 @@ namespace Todo.Application.UseCases.Handlers.QueriesHandler
 
         public async Task<Issue> Handle(GetByIdIssueQuery request, CancellationToken cancellationToken)
         {
-            return _context.Issues.FirstOrDefault(x => x.id == request.id)!;
+            var res = await _context.Issues.FirstOrDefaultAsync(x => x.id == request.id);
+            if (res == null)
+            {
+                throw new Exception("Null");
+            }
+            return res;
         }
     }
 }
