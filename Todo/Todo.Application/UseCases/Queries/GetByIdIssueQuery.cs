@@ -11,5 +11,6 @@ namespace Todo.Application.UseCases.Queries
     public class GetByIdIssueQuery : IRequest<Issue>
     {
         public Guid id {  get; set; }
+        public int Id { get; set; }
     }
 }
