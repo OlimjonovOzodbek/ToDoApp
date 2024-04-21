@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Folder Include="UseCases\Queries\" />
+    <Folder Include="UseCases\Queries\" />
   </ItemGroup>
 
 </Project>
