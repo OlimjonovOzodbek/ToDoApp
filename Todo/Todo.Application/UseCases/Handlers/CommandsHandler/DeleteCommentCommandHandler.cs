@@ -9,10 +9,10 @@ using Todo.Application.UseCases.Commands;
 
 namespace Todo.Application.UseCases.Handlers.CommandsHandler
 {
-    public class DeleteCommendCommandHandler : IRequestHandler<CommentDeleteCommand, bool>
+    public class DeleteCommentCommandHandler : IRequestHandler<CommentDeleteCommand, bool>
     {
         private readonly IAppDbContext _appDbContext;
-        public DeleteCommendCommandHandler(IAppDbContext context)
+        public DeleteCommentCommandHandler(IAppDbContext context)
         {
             _appDbContext = context;   
         }
