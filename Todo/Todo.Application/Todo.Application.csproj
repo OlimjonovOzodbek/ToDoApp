@@ -16,10 +16,5 @@
     <ProjectReference Include="..\Todo.Domain\Todo.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UseCases\Handlers\QueriesHandler\" />
-    <Folder Include="UseCases\Queries\" />
-  </ItemGroup>
-
 
 </Project>
