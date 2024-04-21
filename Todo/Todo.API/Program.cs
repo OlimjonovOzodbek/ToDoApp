@@ -1,4 +1,5 @@
 
+using Serilog;
 using Todo.API.Middlewares;
 using Todo.Domain.Entities.Auth;
 using Todo.Infrsatructure;
@@ -25,7 +26,12 @@ namespace Todo.API
                         AllowAnyMethod();
                     });
             });
-
+            var logger = new LoggerConfiguration()
+            .ReadFrom.Configuration(builder.Configuration)
+            .Enrich.FromLogContext()
+            .CreateLogger();
+            //builder.Logging.ClearProviders();
+            builder.Logging.AddSerilog(logger);
 
             // Add services to the container.
 

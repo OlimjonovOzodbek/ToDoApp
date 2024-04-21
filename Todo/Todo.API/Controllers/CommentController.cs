@@ -8,48 +8,65 @@ using Todo.Domain.Entities;
 
 namespace Todo.API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
-    public class Controller : ControllerBase
+    [Route("api/[controller]")]
+    public class CommentsController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public Controller(IMediator mediator)
+
+        public CommentsController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         [HttpPost]
-        public async Task<Comment> Create(CreateCommentCommand create)
+        public async Task<IActionResult> CreateAsync(CreateCommentCommand createCommand)
         {
-            var result = await _mediator.Send(create);
-            return result;
+            var createdComment = await _mediator.Send(createCommand);
+            return CreatedAtAction(nameof(GetByIdAsync), new { id = createdComment.Id }, createdComment);
         }
 
         [HttpGet]
-        public async Task<List<Comment>> GetAll()
+        public async Task<IActionResult> GetAllAsync()
         {
-            var result = await _mediator.Send(new GetAllCommentsQuery());
-            return result;
+            var comments = await _mediator.Send(new GetAllCommentsQuery());
+            return Ok(comments);
         }
-        [HttpGet("Id")]
-        public async Task<Comment> GetById(Guid id)
-        {
-            var result = await _mediator.Send(new GetCommentByIdQuery { Id = id });
-            return result;
-        }
-        [HttpPatch]
-        public async Task<Comment> Update(UpdateCommentCommand update) 
-        {
-            var result = await _mediator.Send(update);
-            return result;
-        }
-        [HttpDelete]
-        public async Task<bool> Delete(CommentDeleteCommand delete) 
-        {
-            var result = await _mediator.Send(delete);
-            return result;
-        }
-        
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdAsync(Guid id)
+        {
+            var comment = await _mediator.Send(new GetCommentByIdQuery { Id = id });
+            if (comment == null)
+            {
+                return NotFound();
+            }
+            return Ok(comment);
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> UpdateAsync(Guid id, UpdateCommentCommand updateCommand)
+        {
+            if (id != updateCommand.Id)
+            {
+                return BadRequest("Resource ID mismatch");
+            }
+
+            var updatedComment = await _mediator.Send(updateCommand);
+            return Ok(updatedComment);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(Guid id)
+        {
+            var deleteCommand = new CommentDeleteCommand { Id = id };
+            var success = await _mediator.Send(deleteCommand);
+            if (!success)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        }
     }
+
 }
