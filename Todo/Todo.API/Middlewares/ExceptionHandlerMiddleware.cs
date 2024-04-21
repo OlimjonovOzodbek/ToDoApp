@@ -6,18 +6,20 @@ namespace Todo.API.Middlewares
     public class ExceptionHandlerMiddleware
     {
 
-        private readonly RequestDelegate next;
+        private readonly RequestDelegate _next;
+        private readonly ILogger<ExceptionHandlerMiddleware> _logger;
 
-        public ExceptionHandlerMiddleware(RequestDelegate next)
+        public ExceptionHandlerMiddleware(RequestDelegate next, ILogger<ExceptionHandlerMiddleware> logger)
         {
-            this.next = next;
+            _next = next;
+            _logger = logger;
         }
 
         public async Task Invoke(HttpContext context)
         {
             try
             {
-                this.next(context);
+                await _next(context);
             }
             catch (CustomException e)
             {
@@ -32,6 +34,7 @@ namespace Todo.API.Middlewares
             {
 
                 context.Response.StatusCode = 500;
+                _logger.LogError($"{e}\n\n\n");
                 await context.Response.WriteAsJsonAsync(new Response
                 {
                     StatusCode = 500,
