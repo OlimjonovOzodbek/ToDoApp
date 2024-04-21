@@ -17,10 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Todo.Application\Todo.Application.csproj" />
     <ProjectReference Include="..\Todo.Infrsatructure\Todo.Infrsatructure.csproj" />
   </ItemGroup>
