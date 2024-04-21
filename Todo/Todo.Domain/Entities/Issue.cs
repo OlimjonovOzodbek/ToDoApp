@@ -16,7 +16,7 @@ namespace Todo.Domain.Entities
         public Guid ProgrammerId { get; set; }
         public IssueStatus Status {  get; set; } 
         public List<Comments> Comments {  get; set; }
-        public DateTime CreatedDate {  get; set; } = DateTime.UtcNow;
-        public DateTime Deadline { get; set;}
+        public DateTimeOffset CreatedDate {  get; set; } = DateTime.UtcNow;
+        public DateTimeOffset Deadline { get; set;}
     }
 }
