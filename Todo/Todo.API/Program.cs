@@ -1,4 +1,5 @@
 
+using Todo.API.Middlewares;
 using Todo.Domain.Entities.Auth;
 using Todo.Infrsatructure;
 using Todo.Infrsatructure.Persistance;
@@ -47,6 +48,7 @@ namespace Todo.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseMiddleware<ExceptionHandlerMiddleware>();
 
             app.UseHttpsRedirection();
 
