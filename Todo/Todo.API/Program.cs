@@ -9,6 +9,8 @@ namespace Todo.API
     {
         public static void Main(string[] args)
         {
+
+
             var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
             var builder = WebApplication.CreateBuilder(args);
 
