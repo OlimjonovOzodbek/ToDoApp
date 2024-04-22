@@ -8,5 +8,7 @@ namespace Todo.Domain.Entities.Auth
         public string FullName { get; set; }
         public UserRole UserRole { get; set; }
         public string Description { get; set; }
+
+       public virtual List<Task> Tasks {  get; set; }
     }
 }
