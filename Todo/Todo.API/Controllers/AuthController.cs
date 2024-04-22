@@ -14,11 +14,13 @@ namespace Todo.API.Controllers
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
         private readonly SignInManager<User> _signInManager;
-        public AuthController(UserManager<User> userManager, RoleManager<Role> roleManager, SignInManager<User> signInManager)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public AuthController(UserManager<User> userManager, RoleManager<Role> roleManager, SignInManager<User> signInManager, IWebHostEnvironment webHostEnvironment)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [HttpPost]
@@ -43,12 +45,36 @@ namespace Todo.API.Controllers
             if (user is not null)
                 throw new Exception("You already registered");
 
+            var file = userDTO.Photo;
+            string filePath = "";
+            string fileName = "";
+
+            try
+            {
+                fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                filePath = Path.Combine(_webHostEnvironment.WebRootPath, "User", fileName);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+
+                using (var PhotoStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(PhotoStream);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("User photo upload error\n",ex);
+            }
+
             var cratedModel = new User()
             {
                 UserName = userDTO.UserName,
                 Email = userDTO.Email,
                 FullName = userDTO.FullName,
                 Description = userDTO.Description,
+                PhotoPath = "User/" + fileName,
                 UserRole = userDTO.UserRole
             };
 
