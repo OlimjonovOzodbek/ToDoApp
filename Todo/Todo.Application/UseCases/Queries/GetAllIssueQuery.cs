@@ -9,7 +9,7 @@ using Todo.Domain.Entities.Auth;
 
 namespace Todo.Application.UseCases.Queries
 {
-    public class GetAllIssueQuery : IRequest<IEnumerable<Issue>>
+    public class GetAllIssueQuery : IRequest<IEnumerable<Domain.Entities.ProgTask>>
     {
     }
 }

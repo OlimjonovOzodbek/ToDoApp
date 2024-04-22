@@ -15,6 +15,6 @@ namespace Todo.Application.UseCases.Commands
         public Guid SenderId { get; set; }
         public Guid IssueId { get; set; }
         public virtual User Sender { get; set; }
-        public virtual Issue Issue { get; set; }
+        public virtual Domain.Entities.ProgTask Issue { get; set; }
     }
 }

@@ -9,7 +9,7 @@ using Todo.Domain.Enums;
 
 namespace Todo.Application.UseCases.Commands
 {
-    public class CreateIssueCommand: IRequest<Issue>
+    public class CreateIssueCommand: IRequest<Domain.Entities.ProgTask>
     {
         public string FullName { get; set; }
         public string Title { get; set; }

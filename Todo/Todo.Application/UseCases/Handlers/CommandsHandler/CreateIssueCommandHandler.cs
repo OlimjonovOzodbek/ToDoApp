@@ -11,16 +11,16 @@ using Todo.Domain.Entities.Auth;
 
 namespace Todo.Application.UseCases.Handlers.CommandsHandler
 {
-    public class CreateIssueCommandHandler : IRequestHandler<CreateIssueCommand, Issue>
+    public class CreateIssueCommandHandler : IRequestHandler<CreateIssueCommand, Domain.Entities.ProgTask>
     {
         private readonly IAppDbContext _context;
         public CreateIssueCommandHandler(IAppDbContext context)
         {
             _context = context;
         }
-        public async Task<Issue> Handle(CreateIssueCommand request, CancellationToken cancellationToken)
+        public async Task<ProgTask> Handle(CreateIssueCommand request, CancellationToken cancellationToken)
         {
-            var issue = new Issue()
+            var issue = new Domain.Entities.ProgTask()
             {
                 FullName = request.FullName,
                 Title = request.Title,
@@ -28,9 +28,9 @@ namespace Todo.Application.UseCases.Handlers.CommandsHandler
                 Status = request.Status,
                 CreatedDate = request.CreatedDate,
                 Deadline = request.Deadline,
-                ProgrammerId = request.ProgrammerId,
+                UserId = request.ProgrammerId,
             };
-            await _context.Issues.AddAsync(issue);
+            await _context.ProgTask.AddAsync(issue);
             await _context.SaveChangesAsync(cancellationToken);
             return issue;
 

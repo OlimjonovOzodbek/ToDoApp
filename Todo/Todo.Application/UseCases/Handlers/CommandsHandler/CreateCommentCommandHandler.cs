@@ -23,7 +23,7 @@ namespace Todo.Application.UseCases.Handlers.CommandsHandler
             Comment comment = new Comment()
             {
                 Message = request.Message,
-                SenderId = request.SenderId,
+                UserId = request.SenderId,
                 IssueId = request.IssueId,
             };
             await _appDbContext.Comments.AddAsync(comment);

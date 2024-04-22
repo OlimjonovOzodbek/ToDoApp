@@ -18,27 +18,27 @@ namespace Todo.API.Controllers
             _mediator = mediator;
         }
         [HttpPost]
-        public async Task<Issue> Create(CreateIssueCommand command)
+        public async Task<ProgTask> Create(CreateIssueCommand command)
         {
             return await _mediator.Send(command);
         }
         [HttpGet]
-        public async Task<IEnumerable<Issue>> GetAll()
+        public async Task<IEnumerable<ProgTask>> GetAll()
         {
             return await _mediator.Send(new GetAllIssueQuery());
         }
         [HttpGet("{id}")]
-        public async Task<Issue> GetById(Guid id)
+        public async Task<ProgTask> GetById(Guid id)
         {
             return await _mediator.Send(new GetByIdIssueQuery() { id = id });
         }
         [HttpDelete("{id}")]
-        public async Task<Issue> Delete(Guid id)
+        public async Task<ProgTask> Delete(Guid id)
         {
             return await _mediator.Send(new DeleteIssueCommand() { Id = id });
         }
         [HttpPut]
-        public async Task<Issue> Update(UpdateIssueCommand request)
+        public async Task<ProgTask> Update(UpdateIssueCommand request)
         {
             return await _mediator.Send(request);
         }

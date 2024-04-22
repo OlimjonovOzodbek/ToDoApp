@@ -3,7 +3,7 @@ using Serilog;
 using Todo.API.Middlewares;
 using Todo.Domain.Entities.Auth;
 using Todo.Infrsatructure;
-using Todo.Infrsatructure.Persistance;
+using Todo.Infrastructure.Persistence;
 
 namespace Todo.API
 {

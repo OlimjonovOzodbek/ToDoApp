@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Todo.Application.Abstractions;
-using Todo.Infrsatructure.Persistance;
+using Todo.Infrastructure.Persistence;
 
 namespace Todo.Infrsatructure
 {
