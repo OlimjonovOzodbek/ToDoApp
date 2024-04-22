@@ -46,28 +46,29 @@ namespace Todo.API.Controllers
                 throw new Exception("You already registered");
 
             var file = userDTO.Photo;
-            string filePath = "";
             string fileName = "";
-
-            try
+            string filePath = "";
+            if (file is not null)
             {
-                fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                filePath = Path.Combine(_webHostEnvironment.WebRootPath, "User", fileName);
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                try
                 {
-                    await file.CopyToAsync(stream);
-                }
+                    fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    filePath = Path.Combine(_webHostEnvironment.WebRootPath, "User", fileName);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
 
-                using (var PhotoStream = new FileStream(filePath, FileMode.Create))
+                    using (var PhotoStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(PhotoStream);
+                    }
+                }
+                catch (Exception ex)
                 {
-                    await file.CopyToAsync(PhotoStream);
+                    throw new Exception("User photo upload error\n", ex);
                 }
             }
-            catch (Exception ex)
-            {
-                throw new Exception("User photo upload error\n",ex);
-            }
-
             var cratedModel = new User()
             {
                 UserName = userDTO.UserName,

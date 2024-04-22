@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Todo.Domain.Entities.Auth;
 using Todo.Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 
 namespace Todo.Application.UseCases.Commands
 {
@@ -14,6 +15,7 @@ namespace Todo.Application.UseCases.Commands
         public string Message { get; set; }
         public Guid SenderId { get; set; }
         public Guid IssueId { get; set; }
+        public IFormFile Photo { get; set; }
         public virtual User Sender { get; set; }
         public virtual Domain.Entities.ProgTask Issue { get; set; }
     }
