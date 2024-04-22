@@ -22,4 +22,8 @@
     <ProjectReference Include="..\Todo.Infrsatructure\Todo.Infrsatructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\User\" />
+  </ItemGroup>
+
 </Project>
