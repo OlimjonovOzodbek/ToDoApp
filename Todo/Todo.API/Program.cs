@@ -1,4 +1,6 @@
 
+using Serilog;
+using Todo.API.Middlewares;
 using Todo.Domain.Entities.Auth;
 using Todo.Infrsatructure;
 using Todo.Infrsatructure.Persistance;
@@ -9,7 +11,27 @@ namespace Todo.API
     {
         public static void Main(string[] args)
         {
+
+
+            var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddCors(option =>
+            {
+                option.AddPolicy(name: MyAllowSpecificOrigins,
+                    policy =>
+                    {
+                        policy.AllowAnyHeader().
+                        AllowAnyOrigin().
+                        AllowAnyMethod();
+                    });
+            });
+            var logger = new LoggerConfiguration()
+            .ReadFrom.Configuration(builder.Configuration)
+            .Enrich.FromLogContext()
+            .CreateLogger();
+            //builder.Logging.ClearProviders();
+            builder.Logging.AddSerilog(logger);
 
             // Add services to the container.
 
@@ -27,13 +49,16 @@ namespace Todo.API
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+            if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseMiddleware<ExceptionHandlerMiddleware>();
 
             app.UseHttpsRedirection();
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
 
