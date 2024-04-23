@@ -21,7 +21,6 @@ namespace Todo.Application.UseCases.Handlers.CommandsHandler
             if (res is null)
                 throw new Exception("User not found");
 
-            res.IssueId = request.Id;
             res.Message = request.Message;
 
             _appDbContext.Comments.Update(res);

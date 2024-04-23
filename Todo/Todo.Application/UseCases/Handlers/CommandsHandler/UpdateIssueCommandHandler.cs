@@ -21,12 +21,12 @@ namespace Todo.Application.UseCases.Handlers.CommandsHandler
 
         public async Task<ProgTask> Handle(UpdateIssueCommand request, CancellationToken cancellationToken)
         {
-            var issue = await _context.ProgTask.FirstOrDefaultAsync(x => x.id == request.Id);
+            var issue = await _context.Issues.FirstOrDefaultAsync(x => x.Id == request.Id);
 
             if (issue is null)
                 throw new Exception("Issue Not Found!");
 
-            var entry = _context.ProgTask.Update(issue);
+            var entry = _context.Issues.Update(issue);
 
             await _context.SaveChangesAsync();
 

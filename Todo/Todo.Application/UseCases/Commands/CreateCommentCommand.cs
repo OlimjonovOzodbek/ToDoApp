@@ -15,8 +15,7 @@ namespace Todo.Application.UseCases.Commands
         public string Message { get; set; }
         public Guid SenderId { get; set; }
         public Guid IssueId { get; set; }
+        public Guid ProgTaskId { get; set; }
         public IFormFile Photo { get; set; }
-        public virtual User Sender { get; set; }
-        public virtual Domain.Entities.ProgTask Issue { get; set; }
     }
 }

@@ -4,7 +4,6 @@
     {
         Waiting = 1,
         Done,
-        Rejected,
-
+        Rejected
     }
 }

@@ -12,10 +12,10 @@ namespace Todo.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
-        private readonly RoleManager<Role> _roleManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public AuthController(UserManager<User> userManager, RoleManager<Role> roleManager, SignInManager<User> signInManager, IWebHostEnvironment webHostEnvironment)
+        public AuthController(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, SignInManager<User> signInManager, IWebHostEnvironment webHostEnvironment)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -76,7 +76,7 @@ namespace Todo.API.Controllers
                 FullName = userDTO.FullName,
                 Description = userDTO.Description,
                 PhotoPath = "User/" + fileName,
-                UserRole = userDTO.UserRole
+                _userRole = userDTO.UserRole
             };
 
             var result = await _userManager.CreateAsync(cratedModel, userDTO.Password);

@@ -21,12 +21,12 @@ namespace Todo.Application.UseCases.Handlers.CommandsHandler
         }
         public async Task<ProgTask> Handle(DeleteIssueCommand request, CancellationToken cancellationToken)
         {
-            var issue = await _appDbContext.ProgTask.FirstOrDefaultAsync(x => x.id == request.Id);
+            var issue = await _appDbContext.Issues.FirstOrDefaultAsync(x => x.Id == request.Id);
 
             if (issue is null)
                 throw new Exception("Issue not found");
 
-            _appDbContext.ProgTask.Remove(issue);
+            _appDbContext.Issues.Remove(issue);
 
             await _appDbContext.SaveChangesAsync();
 

@@ -52,10 +52,12 @@ namespace Todo.Application.UseCases.Handlers.CommandsHandler
                 Message = request.Message,
                 UserId = request.SenderId,
                 IssueId = request.IssueId,
+                ProgTaskId = request.ProgTaskId,
                 PhotoPath = "Comments/" + fileName
             };
             await _appDbContext.Comments.AddAsync(comment);
             await _appDbContext.SaveChangesAsync();
+
             return comment;
         }
 

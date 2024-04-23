@@ -22,7 +22,7 @@ namespace Todo.Application.UseCases.Handlers.QueriesHandler
 
         public async Task<ProgTask> Handle(GetByIdIssueQuery request, CancellationToken cancellationToken)
         {
-            var res = await _context.ProgTask.FirstOrDefaultAsync(x => x.id == request.id);
+            var res = await _context.Issues.FirstOrDefaultAsync(x => x.Id == request.id);
             if (res == null)
             {
                 throw new Exception("Null");

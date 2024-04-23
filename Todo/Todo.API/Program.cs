@@ -4,6 +4,7 @@ using Todo.API.Middlewares;
 using Todo.Domain.Entities.Auth;
 using Todo.Infrsatructure;
 using Todo.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Identity;
 
 namespace Todo.API
 {
@@ -35,11 +36,13 @@ namespace Todo.API
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
-
             builder.Services.AddInfrastructure(builder.Configuration);
 
-            builder.Services.AddIdentity<User, Role>()
+
+            builder.Services.AddControllers();
+
+
+            builder.Services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ToDoDbContext>();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

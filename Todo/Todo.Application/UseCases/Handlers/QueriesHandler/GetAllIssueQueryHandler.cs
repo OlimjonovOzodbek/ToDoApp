@@ -23,7 +23,7 @@ namespace Todo.Application.UseCases.Handlers.QueriesHandler
 
         public async Task<IEnumerable<ProgTask>> Handle(GetAllIssueQuery request, CancellationToken cancellationToken)
         {
-            return await _context.ProgTask.ToListAsync();
+            return await _context.Issues.ToListAsync();
         }
     }
 }

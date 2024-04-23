@@ -8,7 +8,7 @@ using Todo.Domain.Entities.Auth;
 
 namespace Todo.Infrastructure.Persistence
 {
-    public class ToDoDbContext : IdentityDbContext<User, Role, Guid>, IAppDbContext
+    public class ToDoDbContext : IdentityDbContext<User>, IAppDbContext
     {
         public ToDoDbContext()
         {
@@ -20,9 +20,8 @@ namespace Todo.Infrastructure.Persistence
             Database.Migrate();
         }
 
-        public DbSet<Domain.Entities.ProgTask> Issues { get; set; }
+        public DbSet<ProgTask> Issues { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<ProgTask> ProgTask { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         async ValueTask<int> IAppDbContext.SaveChangesAsync(CancellationToken cancellationToken)
             => await base.SaveChangesAsync(cancellationToken);

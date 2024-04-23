@@ -8,7 +8,7 @@ using Todo.Domain.Entities;
 
 namespace Todo.Application.UseCases.Commands
 {
-    public class DeleteIssueCommand : IRequest<Domain.Entities.ProgTask>
+    public class DeleteIssueCommand : IRequest<ProgTask>
     {
         public Guid Id { get; set; }
     }

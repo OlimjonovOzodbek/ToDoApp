@@ -1,6 +1,6 @@
 ﻿namespace Todo.Domain.Enums
 {
-    public enum UserRole
+    public enum MyRoles
     {
         Frontend = 1,
         Backend,

@@ -3,12 +3,12 @@ using Todo.Domain.Enums;
 
 namespace Todo.Domain.Entities.Auth
 {
-    public class User : IdentityUser<Guid>
+    public class User : IdentityUser
     {
         public string FullName { get; set; }
-        public UserRole UserRole { get; set; }
+        public MyRoles _userRole {  get; set; }
         public string Description { get; set; }
         public string PhotoPath { get; set; }
-       public virtual List<Task> Tasks {  get; set; }
+        public virtual List<ProgTask> Tasks {  get; set; }
     }
 }
