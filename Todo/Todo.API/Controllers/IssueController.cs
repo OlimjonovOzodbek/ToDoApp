@@ -30,7 +30,7 @@ namespace Todo.API.Controllers
         [HttpGet("{id}")]
         public async Task<ProgTask> GetById(Guid id)
         {
-            return await _mediator.Send(new GetByIdIssueQuery() { id = id });
+            return await _mediator.Send(new GetByIdIssueQuery() { Id = id });
         }
         [HttpDelete("{id}")]
         public async Task<ProgTask> Delete(Guid id)

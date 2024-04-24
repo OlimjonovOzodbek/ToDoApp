@@ -41,7 +41,7 @@ namespace Todo.Application.UseCases.Handlers.CommandsHandler
                     }
 
                 }
-                catch (Exception ex)
+                catch
                 {
                     new Exception("Error while upload comment photo");
                 }
@@ -51,7 +51,6 @@ namespace Todo.Application.UseCases.Handlers.CommandsHandler
             {
                 Message = request.Message,
                 UserId = request.SenderId,
-                IssueId = request.IssueId,
                 ProgTaskId = request.ProgTaskId,
                 PhotoPath = "Comments/" + fileName
             };

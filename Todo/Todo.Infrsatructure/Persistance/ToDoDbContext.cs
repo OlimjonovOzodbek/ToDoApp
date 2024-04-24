@@ -10,10 +10,6 @@ namespace Todo.Infrastructure.Persistence
 {
     public class ToDoDbContext : IdentityDbContext<User>, IAppDbContext
     {
-        public ToDoDbContext()
-        {
-            
-        }
         public ToDoDbContext(DbContextOptions<ToDoDbContext> options)
             : base(options)
         {

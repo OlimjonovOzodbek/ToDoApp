@@ -7,19 +7,17 @@ namespace Todo.Domain.Entities
 {
     public class ProgTask
     {
-        [Key]
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; }
         public string FullName { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public IssueStatus Status { get; set; }
         public DateTimeOffset CreatedDate { get; set; } = DateTime.UtcNow;
         public DateTimeOffset Deadline { get; set; }
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
 
         public virtual List<Comment> Comments { get; set; }
         
-        [ForeignKey(nameof(UserId))]
         public virtual User User { get; set; }
     }
 }
