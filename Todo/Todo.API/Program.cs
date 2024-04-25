@@ -5,6 +5,10 @@ using Todo.Domain.Entities.Auth;
 using Todo.Infrsatructure;
 using Todo.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Hosting;
+using System.Reflection;
+using MediatR;
+using Todo.Application;
 
 namespace Todo.API
 {
@@ -37,10 +41,10 @@ namespace Todo.API
             // Add services to the container.
 
             builder.Services.AddInfrastructure(builder.Configuration);
+            builder.Services.AddApplicationServices();
 
 
             builder.Services.AddControllers();
-
 
             builder.Services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ToDoDbContext>();
