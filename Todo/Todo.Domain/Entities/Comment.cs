@@ -12,7 +12,6 @@ namespace Todo.Domain.Entities
         public string? Message { get; set; }
         public string UserId { get; set; } 
         public Guid ProgTaskId {  get; set; }
-        public string? PhotoPath { get; set; }
 
         [ForeignKey(nameof(ProgTaskId))]
         public virtual ProgTask ProgTask { get; set; }

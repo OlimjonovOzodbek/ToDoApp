@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\Comment\**" />
+    <Content Remove="wwwroot\Comment\**" />
+    <EmbeddedResource Remove="wwwroot\Comment\**" />
+    <None Remove="wwwroot\Comment\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MediatR" Version="11.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.4">
       <PrivateAssets>all</PrivateAssets>
@@ -24,8 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Comment\" />
-    <Folder Include="wwwroot\Comment\" />
+    <Folder Include="wwwroot\ProgTask\" />
     <Folder Include="wwwroot\User\" />
   </ItemGroup>
 
