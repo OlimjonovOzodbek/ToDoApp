@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Comment\" />
+    <Folder Include="wwwroot\Comment\" />
     <Folder Include="wwwroot\User\" />
   </ItemGroup>
 
