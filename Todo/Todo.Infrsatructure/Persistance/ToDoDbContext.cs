@@ -25,8 +25,6 @@ namespace Todo.Infrastructure.Persistence
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
-            // Add any custom entity configurations or relationships here if needed
         }
     }
 }

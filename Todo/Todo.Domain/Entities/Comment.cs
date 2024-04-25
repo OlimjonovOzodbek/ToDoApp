@@ -7,16 +7,11 @@ namespace Todo.Domain.Entities
 {
     public class Comment
     {
-        [Key]
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; }
         public string? Message { get; set; }
-        public string UserId { get; set; } 
         public Guid ProgTaskId {  get; set; }
-
-        [ForeignKey(nameof(ProgTaskId))]
+        public string UserId { get; set; } 
         public virtual ProgTask ProgTask { get; set; }
-
-        [ForeignKey(nameof(UserId))]
         public virtual User User { get; set; }
     }
 }

@@ -12,7 +12,7 @@ using Todo.Infrastructure.Persistence;
 namespace Todo.Infrsatructure.Migrations
 {
     [DbContext(typeof(ToDoDbContext))]
-    [Migration("20240424041331_Test")]
+    [Migration("20240425114155_Test")]
     partial class Test
     {
         /// <inheritdoc />
@@ -248,9 +248,6 @@ namespace Todo.Infrsatructure.Migrations
                     b.Property<string>("Message")
                         .HasColumnType("text");
 
-                    b.Property<string>("PhotoPath")
-                        .HasColumnType("text");
-
                     b.Property<Guid>("ProgTaskId")
                         .HasColumnType("uuid");
 
@@ -284,6 +281,10 @@ namespace Todo.Infrsatructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhotoPath")
                         .IsRequired()
                         .HasColumnType("text");
 

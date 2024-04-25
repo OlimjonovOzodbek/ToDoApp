@@ -8,7 +8,7 @@ namespace Todo.Domain.Entities
 {
     public class ProgTask
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; }
         public string FullName { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
@@ -17,7 +17,6 @@ namespace Todo.Domain.Entities
         public DateTimeOffset Deadline { get; set; }
         public string PhotoPath { get; set; }
         public string UserId { get; set; }
-
         public virtual List<Comment> Comments { get; set; }
         public virtual User User { get; set; }
     }

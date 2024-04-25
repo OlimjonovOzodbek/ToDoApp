@@ -292,15 +292,13 @@ namespace Todo.Infrsatructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("UserId1")
+                    b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Issues");
                 });
@@ -379,7 +377,9 @@ namespace Todo.Infrsatructure.Migrations
                 {
                     b.HasOne("Todo.Domain.Entities.Auth.User", "User")
                         .WithMany("Tasks")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });

@@ -172,6 +172,7 @@ namespace Todo.Infrsatructure.Migrations
                     Status = table.Column<int>(type: "integer", nullable: false),
                     CreatedDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     Deadline = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    PhotoPath = table.Column<string>(type: "text", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -191,9 +192,8 @@ namespace Todo.Infrsatructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Message = table.Column<string>(type: "text", nullable: true),
-                    UserId = table.Column<string>(type: "text", nullable: false),
                     ProgTaskId = table.Column<Guid>(type: "uuid", nullable: false),
-                    PhotoPath = table.Column<string>(type: "text", nullable: true)
+                    UserId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
