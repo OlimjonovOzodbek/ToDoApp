@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Todo.Application.UseCases.Commands
 {
-    public class CreateCommentCommand:IRequest<Comment>
+    public class CreateCommentCommand : IRequest<Comment>
     {
         public string Message { get; set; }
         public string SenderId { get; set; }
