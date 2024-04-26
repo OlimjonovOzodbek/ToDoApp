@@ -1,14 +1,8 @@
-
-using Serilog;
-using Todo.API.Middlewares;
-using Todo.Domain.Entities.Auth;
-using Todo.Infrsatructure;
-using Todo.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Hosting;
-using System.Reflection;
-using MediatR;
-using Todo.Application;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Todo.Domain.Entities.Auth;
+using Todo.Infrastructure.Persistence;
 
 namespace Todo.API
 {
@@ -16,60 +10,41 @@ namespace Todo.API
     {
         public static void Main(string[] args)
         {
-
-
-            var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddCors(option =>
+            // Configure services
+            builder.Services.AddCors(options =>
             {
-                option.AddPolicy(name: MyAllowSpecificOrigins,
-                    policy =>
-                    {
-                        policy.AllowAnyHeader().
-                        AllowAnyOrigin().
-                        AllowAnyMethod();
-                    });
+                options.AddPolicy("_myAllowSpecificOrigins",
+                    builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             });
-            var logger = new LoggerConfiguration()
-            .ReadFrom.Configuration(builder.Configuration)
-            .Enrich.FromLogContext()
-            .CreateLogger();
-            //builder.Logging.ClearProviders();
-            builder.Logging.AddSerilog(logger);
-
-            // Add services to the container.
-
-            builder.Services.AddInfrastructure(builder.Configuration);
-            builder.Services.AddApplicationServices();
-
 
             builder.Services.AddControllers();
 
-            builder.Services.AddIdentity<User, IdentityRole>()
+            builder.Services.AddDbContext<ToDoDbContext>(options =>
+                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<ToDoDbContext>();
 
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+            // Configure endpoints
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            // Configure the HTTP request pipeline
             if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-            app.UseMiddleware<ExceptionHandlerMiddleware>();
+
+            app.UseCors("_myAllowSpecificOrigins");
 
             app.UseHttpsRedirection();
-
-            app.UseCors(MyAllowSpecificOrigins);
-
             app.UseAuthorization();
-
-
             app.MapControllers();
 
             app.Run();

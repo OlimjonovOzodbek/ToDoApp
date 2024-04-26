@@ -24,6 +24,7 @@ namespace Todo.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles ="TeamLead, Admin")]
         public async Task<IActionResult> Register(UserDTO userDTO)
         {
             if (!ModelState.IsValid)
@@ -75,9 +76,10 @@ namespace Todo.API.Controllers
                 Email = userDTO.Email,
                 FullName = userDTO.FullName,
                 Description = userDTO.Description,
-                PhotoPath = "User/" + fileName,
-                _userRole = userDTO.UserRole
+                PhotoPath = "User/" + fileName
             };
+
+            _userManager.AddToRoleAsync(cratedModel, "TeamLead");
 
             var result = await _userManager.CreateAsync(cratedModel, userDTO.Password);
 

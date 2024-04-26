@@ -16,7 +16,7 @@ namespace Todo.Domain.Entities
         public DateTimeOffset CreatedDate { get; set; } = DateTime.UtcNow;
         public DateTimeOffset Deadline { get; set; }
         public string PhotoPath { get; set; }
-        public string UserId { get; set; }
+        public Guid UserId { get; set; }
         public virtual List<Comment> Comments { get; set; }
         public virtual User User { get; set; }
     }
