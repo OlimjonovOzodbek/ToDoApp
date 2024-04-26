@@ -18,7 +18,7 @@ namespace Todo.Application.UseCases.Commands
         public IssueStatus Status { get; set; }
         public DateTimeOffset CreatedDate { get; set; } = DateTime.UtcNow;
         public DateTimeOffset Deadline { get; set; }
-        public Guid ProgrammerId { get; set; }
+        public string ProgrammerId { get; set; }
         public IFormFile Photo { get; set; }
     }
 }

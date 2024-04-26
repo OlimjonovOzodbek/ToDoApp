@@ -16,5 +16,6 @@ namespace Todo.Domain.DTOS
         public string Password { get; set; }
         public IFormFile? Photo { get; set; }
         public string Description { get; set; }
+        public string Role { get; set; }
     }
 }
