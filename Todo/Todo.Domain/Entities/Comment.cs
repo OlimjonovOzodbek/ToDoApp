@@ -10,7 +10,7 @@ namespace Todo.Domain.Entities
         public Guid Id { get; set; }
         public string? Message { get; set; }
         public Guid ProgTaskId {  get; set; }
-        public Guid UserId { get; set; } 
+        public string UserId { get; set; } 
         public virtual ProgTask ProgTask { get; set; }
         public virtual User User { get; set; }
     }

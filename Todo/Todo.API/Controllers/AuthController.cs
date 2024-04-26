@@ -24,7 +24,7 @@ namespace Todo.API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles ="TeamLead, Admin")]
+        [Authorize(Roles ="TeamLead")]
         public async Task<IActionResult> Register(UserDTO userDTO)
         {
             if (!ModelState.IsValid)
@@ -79,12 +79,17 @@ namespace Todo.API.Controllers
                 PhotoPath = "User/" + fileName
             };
 
-            _userManager.AddToRoleAsync(cratedModel, "TeamLead");
 
             var result = await _userManager.CreateAsync(cratedModel, userDTO.Password);
 
             if (!result.Succeeded)
                 throw new Exception("Something went wrong!");
+
+            
+            var role = await _userManager.AddToRoleAsync(cratedModel, userDTO.Role);
+
+            if (!role.Succeeded)
+                throw new Exception();
 
             return Ok(result);
         }
@@ -96,6 +101,11 @@ namespace Todo.API.Controllers
                 return BadRequest(ModelState);
 
             var user = await _userManager.FindByEmailAsync(loginDTO.Email);
+
+            if (user == null)
+            {
+                user = await _userManager.FindByIdAsync(loginDTO.Email);
+            }
 
             if (user is null)
                 throw new Exception("User not found");
