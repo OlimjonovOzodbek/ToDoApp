@@ -13,7 +13,7 @@ namespace Todo.Application.UseCases.Commands
     public class CreateCommentCommand : IRequest<Comment>
     {
         public string Message { get; set; }
-        public Guid SenderId { get; set; }
+        public string SenderId { get; set; }
         public Guid ProgTaskId { get; set; }
     }
 }

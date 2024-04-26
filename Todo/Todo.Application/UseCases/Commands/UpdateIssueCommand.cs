@@ -18,6 +18,6 @@ namespace Todo.Application.UseCases.Commands
         public IssueStatus Status { get; set; }
         public DateTimeOffset CreatedDate { get; set; }
         public DateTimeOffset Deadline { get; set; }
-        public Guid ProgrammerId { get; set; }
+        public string ProgrammerId { get; set; }
     }
 }
