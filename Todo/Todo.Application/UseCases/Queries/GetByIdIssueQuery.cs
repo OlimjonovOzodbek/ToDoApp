@@ -8,7 +8,7 @@ using Todo.Domain.Entities;
 
 namespace Todo.Application.UseCases.Queries
 {
-    public class GetByIdIssueQuery : IRequest<Domain.Entities.ProgTask>
+    public class GetByIdIssueQuery : IRequest<Issue>
     {
         public Guid Id {  get; set; }
     }

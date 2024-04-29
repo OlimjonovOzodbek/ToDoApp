@@ -12,7 +12,7 @@ using Todo.Domain.Entities.Auth;
 
 namespace Todo.Application.UseCases.Handlers.QueriesHandler
 {
-    public class GetAllIssueQueryHandler: IRequestHandler<GetAllIssueQuery,IEnumerable<Domain.Entities.ProgTask>>
+    public class GetAllIssueQueryHandler: IRequestHandler<GetAllIssueQuery,IEnumerable<Issue>>
     {
         private readonly IAppDbContext _context;
 
@@ -21,7 +21,7 @@ namespace Todo.Application.UseCases.Handlers.QueriesHandler
             _context = context;
         }
 
-        public async Task<IEnumerable<ProgTask>> Handle(GetAllIssueQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Issue>> Handle(GetAllIssueQuery request, CancellationToken cancellationToken)
         {
             return await _context.Issues.ToListAsync();
         }

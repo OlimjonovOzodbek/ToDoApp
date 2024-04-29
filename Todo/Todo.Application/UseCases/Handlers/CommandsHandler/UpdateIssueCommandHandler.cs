@@ -11,7 +11,7 @@ using Todo.Domain.Entities;
 
 namespace Todo.Application.UseCases.Handlers.CommandsHandler
 {
-    public class UpdateIssueCommandHandler : IRequestHandler<UpdateIssueCommand, Domain.Entities.ProgTask>
+    public class UpdateIssueCommandHandler : IRequestHandler<UpdateIssueCommand, Issue>
     {
         private readonly IAppDbContext _context;
         public UpdateIssueCommandHandler(IAppDbContext context)
@@ -19,7 +19,7 @@ namespace Todo.Application.UseCases.Handlers.CommandsHandler
             _context = context;
         }
 
-        public async Task<ProgTask> Handle(UpdateIssueCommand request, CancellationToken cancellationToken)
+        public async Task<Issue> Handle(UpdateIssueCommand request, CancellationToken cancellationToken)
         {
             var issue = await _context.Issues.FirstOrDefaultAsync(x => x.Id == request.Id);
 

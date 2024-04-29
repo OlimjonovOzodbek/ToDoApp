@@ -11,7 +11,7 @@ using Todo.Domain.Entities;
 
 namespace Todo.Application.UseCases.Handlers.QueriesHandler
 {
-    public class GetByIdIssueHandler :IRequestHandler<GetByIdIssueQuery, Domain.Entities.ProgTask>
+    public class GetByIdIssueHandler :IRequestHandler<GetByIdIssueQuery, Issue>
     {
         private readonly IAppDbContext _context;
 
@@ -20,7 +20,7 @@ namespace Todo.Application.UseCases.Handlers.QueriesHandler
             _context = context;
         }
 
-        public async Task<ProgTask> Handle(GetByIdIssueQuery request, CancellationToken cancellationToken)
+        public async Task<Issue> Handle(GetByIdIssueQuery request, CancellationToken cancellationToken)
         {
             var res = await _context.Issues.FirstOrDefaultAsync(x => x.Id == request.Id);
             if (res == null)

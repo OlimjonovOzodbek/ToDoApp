@@ -32,7 +32,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\ProgTask\" />
-    <Folder Include="wwwroot\User\" />
   </ItemGroup>
 
 </Project>

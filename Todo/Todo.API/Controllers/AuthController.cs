@@ -24,7 +24,7 @@ namespace Todo.API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles ="TeamLead")]
+        //[Authorize(Roles ="TeamLead")]
         public async Task<IActionResult> Register(UserDTO userDTO)
         {
             if (!ModelState.IsValid)
@@ -75,8 +75,7 @@ namespace Todo.API.Controllers
                 UserName = userDTO.UserName,
                 Email = userDTO.Email,
                 FullName = userDTO.FullName,
-                Description = userDTO.Description,
-                PhotoPath = "User/" + fileName
+                Description = userDTO.Description
             };
 
 

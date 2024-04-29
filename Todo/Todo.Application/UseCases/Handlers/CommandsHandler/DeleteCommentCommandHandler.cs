@@ -14,13 +14,20 @@ namespace Todo.Application.UseCases.Handlers.CommandsHandler
         private readonly IAppDbContext _appDbContext;
         public DeleteCommentCommandHandler(IAppDbContext context)
         {
-            _appDbContext = context;   
+            _appDbContext = context;
         }
         public async Task<bool> Handle(CommentDeleteCommand request, CancellationToken cancellationToken)
         {
-            _appDbContext.Comments.Remove(_appDbContext.Comments.FirstOrDefault(x => x.Id == request.Id)!);
-           await _appDbContext.SaveChangesAsync();
-            return true;
+            try
+            {
+                _appDbContext.Comments.Remove(_appDbContext.Comments.FirstOrDefault(x => x.Id == request.Id)!);
+                await _appDbContext.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

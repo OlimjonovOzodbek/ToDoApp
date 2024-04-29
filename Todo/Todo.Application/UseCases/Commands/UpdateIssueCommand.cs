@@ -10,7 +10,7 @@ using Todo.Domain.Enums;
 
 namespace Todo.Application.UseCases.Commands
 {
-    public class UpdateIssueCommand : IRequest<ProgTask>
+    public class UpdateIssueCommand : IRequest<Issue>
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
