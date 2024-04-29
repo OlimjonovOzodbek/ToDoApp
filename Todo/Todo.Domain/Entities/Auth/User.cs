@@ -7,7 +7,6 @@ namespace Todo.Domain.Entities.Auth
     {
         public string FullName { get; set; }
         public string Description { get; set; }
-        public string? PhotoPath { get; set; }
-        public virtual List<ProgTask> Tasks {  get; set; }
+        public string Role {  get; set; }
     }
 }

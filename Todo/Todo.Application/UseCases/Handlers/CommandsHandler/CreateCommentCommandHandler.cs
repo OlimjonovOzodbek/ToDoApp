@@ -26,7 +26,7 @@ namespace Todo.Application.UseCases.Handlers.CommandsHandler
             {
                 Message = request.Message,
                 UserId = request.SenderId,
-                ProgTaskId = request.ProgTaskId,
+                IssueId = request.IssueId,
             };
             await _appDbContext.Comments.AddAsync(comment);
             await _appDbContext.SaveChangesAsync();
