@@ -59,7 +59,10 @@ namespace Todo.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
-            var success = await _mediator.Send(deleteCommand);
+            var success = await _mediator.Send(new CommentDeleteCommand()
+            {
+                Id = id
+            });
             if (!success)
             {
                 return NotFound();
