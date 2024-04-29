@@ -12,7 +12,7 @@ using Todo.Domain.Entities.Auth;
 
 namespace Todo.Application.UseCases.Handlers.CommandsHandler
 {
-    public class CreateIssueCommandHandler : IRequestHandler<CreateIssueCommand, ProgTask>
+    public class CreateIssueCommandHandler : IRequestHandler<CreateIssueCommand, Issue>
     {
         private readonly IAppDbContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
@@ -21,19 +21,19 @@ namespace Todo.Application.UseCases.Handlers.CommandsHandler
             _context = context;
             _webHostEnvironment = webHostEnvironment;
         }
-        public async Task<ProgTask> Handle(CreateIssueCommand request, CancellationToken cancellationToken)
+        public async Task<Issue> Handle(CreateIssueCommand request, CancellationToken cancellationToken)
         {
             string fileName = "";
             string filePath = "";
-            if (request.Photo is not null)
+            if (request.File is not null)
             {
-                var file = request.Photo;
+                var file = request.File;
 
 
                 try
                 {
                     fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                    filePath = Path.Combine(_webHostEnvironment.WebRootPath, "ProgTask", fileName);
+                    filePath = Path.Combine(_webHostEnvironment.WebRootPath, "Issues", fileName);
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
                         await file.CopyToAsync(stream);
@@ -45,16 +45,13 @@ namespace Todo.Application.UseCases.Handlers.CommandsHandler
                     new Exception("Error while upload comment photo");
                 }
             }
-            var task = new ProgTask()
+            var task = new Issue()
             {
-                FullName = request.FullName,
                 Title = request.Title,
                 Description = request.Description,
-                Status = request.Status,
                 CreatedDate = request.CreatedDate,
                 Deadline = request.Deadline,
-                UserId = request.ProgrammerId,
-                PhotoPath = "/ProgTask"+fileName
+                FilePath = "/Issues"+fileName
             };
             await _context.Issues.AddAsync(task);
             await _context.SaveChangesAsync(cancellationToken);

@@ -6,18 +6,16 @@ using Todo.Domain.Enums;
 
 namespace Todo.Domain.Entities
 {
-    public class ProgTask
+    public class Issue
     {
         public Guid Id { get; set; }
-        public string FullName { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public IssueStatus Status { get; set; }
         public DateTimeOffset CreatedDate { get; set; } = DateTime.UtcNow;
         public DateTimeOffset Deadline { get; set; }
-        public string PhotoPath { get; set; }
-        public string UserId { get; set; }
+        public string FilePath { get; set; }
+        public string TaskCreaterId { get; set; }
         public virtual List<Comment> Comments { get; set; }
-        public virtual User User { get; set; }
+        public virtual User TaskCreator { get; set; }
     }
 }
