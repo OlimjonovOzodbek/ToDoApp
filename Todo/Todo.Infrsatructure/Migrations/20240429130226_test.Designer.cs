@@ -12,7 +12,7 @@ using Todo.Infrastructure.Persistence;
 namespace Todo.Infrsatructure.Migrations
 {
     [DbContext(typeof(ToDoDbContext))]
-    [Migration("20240426110138_test")]
+    [Migration("20240429130226_test")]
     partial class test
     {
         /// <inheritdoc />
@@ -207,7 +207,8 @@ namespace Todo.Infrsatructure.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("PhotoPath")
+                    b.Property<string>("Role")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("SecurityStamp")
@@ -238,11 +239,11 @@ namespace Todo.Infrsatructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("IssueId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("Message")
                         .HasColumnType("text");
-
-                    b.Property<Guid>("ProgTaskId")
-                        .HasColumnType("uuid");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -250,14 +251,14 @@ namespace Todo.Infrsatructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProgTaskId");
+                    b.HasIndex("IssueId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("Todo.Domain.Entities.ProgTask", b =>
+            modelBuilder.Entity("Todo.Domain.Entities.Issue", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -273,28 +274,24 @@ namespace Todo.Infrsatructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("FullName")
+                    b.Property<string>("FilePath")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("PhotoPath")
+                    b.Property<string>("TaskCreaterId")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
+                    b.Property<string>("TaskCreatorId")
+                        .HasColumnType("text");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("TaskCreatorId");
 
                     b.ToTable("Issues");
                 });
@@ -352,9 +349,9 @@ namespace Todo.Infrsatructure.Migrations
 
             modelBuilder.Entity("Todo.Domain.Entities.Comment", b =>
                 {
-                    b.HasOne("Todo.Domain.Entities.ProgTask", "ProgTask")
+                    b.HasOne("Todo.Domain.Entities.Issue", "Issue")
                         .WithMany("Comments")
-                        .HasForeignKey("ProgTaskId")
+                        .HasForeignKey("IssueId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -364,28 +361,21 @@ namespace Todo.Infrsatructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ProgTask");
+                    b.Navigation("Issue");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Todo.Domain.Entities.ProgTask", b =>
+            modelBuilder.Entity("Todo.Domain.Entities.Issue", b =>
                 {
-                    b.HasOne("Todo.Domain.Entities.Auth.User", "User")
-                        .WithMany("Tasks")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Todo.Domain.Entities.Auth.User", "TaskCreator")
+                        .WithMany()
+                        .HasForeignKey("TaskCreatorId");
 
-                    b.Navigation("User");
+                    b.Navigation("TaskCreator");
                 });
 
-            modelBuilder.Entity("Todo.Domain.Entities.Auth.User", b =>
-                {
-                    b.Navigation("Tasks");
-                });
-
-            modelBuilder.Entity("Todo.Domain.Entities.ProgTask", b =>
+            modelBuilder.Entity("Todo.Domain.Entities.Issue", b =>
                 {
                     b.Navigation("Comments");
                 });

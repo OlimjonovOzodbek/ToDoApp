@@ -33,7 +33,7 @@ namespace Todo.Infrsatructure.Migrations
                     Id = table.Column<string>(type: "text", nullable: false),
                     FullName = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
-                    PhotoPath = table.Column<string>(type: "text", nullable: true),
+                    Role = table.Column<string>(type: "text", nullable: false),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -165,24 +165,22 @@ namespace Todo.Infrsatructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    FullName = table.Column<string>(type: "text", nullable: false),
                     Title = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
-                    Status = table.Column<int>(type: "integer", nullable: false),
                     CreatedDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     Deadline = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    PhotoPath = table.Column<string>(type: "text", nullable: false),
-                    UserId = table.Column<string>(type: "text", nullable: false)
+                    FilePath = table.Column<string>(type: "text", nullable: false),
+                    TaskCreaterId = table.Column<string>(type: "text", nullable: false),
+                    TaskCreatorId = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Issues", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Issues_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Issues_AspNetUsers_TaskCreatorId",
+                        column: x => x.TaskCreatorId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -191,7 +189,7 @@ namespace Todo.Infrsatructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Message = table.Column<string>(type: "text", nullable: true),
-                    ProgTaskId = table.Column<Guid>(type: "uuid", nullable: false),
+                    IssueId = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -204,8 +202,8 @@ namespace Todo.Infrsatructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Comments_Issues_ProgTaskId",
-                        column: x => x.ProgTaskId,
+                        name: "FK_Comments_Issues_IssueId",
+                        column: x => x.IssueId,
                         principalTable: "Issues",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -249,9 +247,9 @@ namespace Todo.Infrsatructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_ProgTaskId",
+                name: "IX_Comments_IssueId",
                 table: "Comments",
-                column: "ProgTaskId");
+                column: "IssueId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_UserId",
@@ -259,9 +257,9 @@ namespace Todo.Infrsatructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Issues_UserId",
+                name: "IX_Issues_TaskCreatorId",
                 table: "Issues",
-                column: "UserId");
+                column: "TaskCreatorId");
         }
 
         /// <inheritdoc />

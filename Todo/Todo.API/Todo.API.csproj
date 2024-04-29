@@ -8,10 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\Comment\**" />
-    <Content Remove="wwwroot\Comment\**" />
-    <EmbeddedResource Remove="wwwroot\Comment\**" />
-    <None Remove="wwwroot\Comment\**" />
+    <Compile Remove="wwwroot\ProgTask\**" />
+    <Content Remove="wwwroot\ProgTask\**" />
+    <EmbeddedResource Remove="wwwroot\ProgTask\**" />
+    <None Remove="wwwroot\ProgTask\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\ProgTask\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>
